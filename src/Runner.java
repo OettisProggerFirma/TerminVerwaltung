@@ -9,8 +9,8 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        DBVerbindung.verbindungAufbauen("jdbc:postgresql://localhost/termine", "postgres", "password");
-
-        new FrameHolder();
+        //BVerbindung.verbindungAufbauen("jdbc:postgresql://localhost/termine", "postgres", "password");
+        System.out.println(Logging.testFormat());
+        // new FrameHolder();
     }
 }
