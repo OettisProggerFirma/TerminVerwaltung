@@ -21,7 +21,10 @@ public class denisLog {
             textFile = new FileHandler("logging.properties");
         } catch (IOException e) {
             e.printStackTrace();
-            logger.getLogger("Die Log-Datei existiert nicht");
+
+            logger.setLevel(Level.SEVERE);
+            logger.log(Level.SEVERE,"Die Log-Datei existiert nicht");
+            logger.toString();
         }
     }
 
