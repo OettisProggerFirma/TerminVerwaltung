@@ -1,7 +1,10 @@
 package gui;
 
+
+import com.sun.javafx.util.Logging;
 import db.DBVerbindung;
 import db.TerminDAO;
+import Logs.denisLog;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -13,13 +16,13 @@ import java.awt.event.WindowEvent;
 public class FrameHolder {
 
     private final JFrame frame;
-
+    private final denisLog logs = new denisLog();
 
     public FrameHolder() {
 
         this.frame = new JFrame("Termine in der Datenbank");
 
-        this.frame.add( new TerminEditor() );
+        this.frame.add(new TerminEditor());
 
         this.frame.addWindowListener(new WindowAdapter() {
             @Override
