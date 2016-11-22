@@ -1,24 +1,47 @@
 package db;
 
+import Logs.denisLog;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 /**
- * Created by hmueller on 20.09.2016.
+ * Created by Denis on 20.11.2016.
  */
 public class DBVerbindung {
 
+    //    gehört zum logging
+    private static Logger dateiLog = Logger.getLogger(denisLog.class.getName());
+    private static Logger konsolenLog = Logger.getLogger(denisLog.class.getName());
+    private static denisLog meine = new denisLog();
+//    gehört zum logging
+
+
+    public DBVerbindung() {
+        //    gehört zum logging
+
+        dateiLog.addHandler(meine.getDatei());
+        konsolenLog.addHandler(meine.getKonsole());
+//    gehört zum logging
+
+    }
+
     private static Connection CON;
 
-    public static boolean verbindungAufbauen(String url, String user, String pass){
+    public static boolean verbindungAufbauen(String url, String user, String pass) {
         try {
             DBVerbindung.CON = DriverManager.getConnection(url, user, pass);
+//            Herstellen loggen:
+            dateiLog.log(Level.INFO, "SQL-Verbindung hat geklappt");
+//            DB-Parameter loggen:
+            dateiLog.log(Level.CONFIG, String.format("SQL-Verbindung mit folgenden Parametern: URL - %s, User - %s, Passwort - %s (sollte ja wohl bekannt sein)", url, user, pass));
+
         } catch (SQLException e) {
-            System.err.println("Fehler beim Herstellen der Datenbankverbindung: " + e.getMessage() + " : " + e.getSQLState());
+            dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage() + e.getSQLState()));
             System.exit(-1);
         }
 
@@ -29,8 +52,10 @@ public class DBVerbindung {
         if (DBVerbindung.CON != null && DBVerbindung.verbindungSteht()) {
             try {
                 DBVerbindung.CON.close();
+                dateiLog.log(Level.INFO, "SQL-Verbindung ist geschlossen");
             } catch (SQLException e) {
                 System.err.println("Fehler beim Schliessen der Datenbankverbindung: " + e.getMessage() + " : " + e.getSQLState());
+                dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage() + e.getSQLState()));
             }
         }
     }
@@ -41,13 +66,13 @@ public class DBVerbindung {
             try {
                 steht = CON.isValid(0);
             } catch (SQLException e) {
-                System.err.println("Fehler beim Überprüfen der Datenbankverbindung: " + e.getMessage() + " : " + e.getSQLState());
+                dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage() + e.getSQLState()));
             }
         }
         return steht;
     }
 
-    public static PreparedStatement preparedStatement( String sql ) throws SQLException {
+    public static PreparedStatement preparedStatement(String sql) throws SQLException {
         return DBVerbindung.CON.prepareStatement(sql);
     }
 

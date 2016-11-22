@@ -1,44 +1,55 @@
 package Logs;
 
 import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.time.LocalDateTime;
+import java.util.logging.*;
 
 /**
  * Created by Denis on 20.11.2016.
  */
 public class denisLog {
-    private static FileHandler textFile;
-    private static SimpleFormatter textFormatter;
-    private static Logger logger;
+    private static FileHandler datei;
+    private static ConsoleHandler konsole;
+    private static Logger dateiLog = Logger.getLogger(denisLog.class.getName());
+    private static Logger konsolenLog = Logger.getLogger(denisLog.class.getName());
 
-
+    /**
+     * Created by Denis on 20.11.2016.
+     */
     public denisLog() {
-        logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         try {
-            textFile = new FileHandler("logging.properties");
+            datei = new FileHandler(String.format("logging_%s.log", LocalDateTime.now().toString()));
+            datei.setFormatter(new SimpleFormatter());
         } catch (IOException e) {
             e.printStackTrace();
-
-            logger.setLevel(Level.SEVERE);
-            logger.log(Level.SEVERE,"Die Log-Datei existiert nicht");
-            logger.toString();
+            konsolenLog.log(Level.SEVERE, String.format("Das %s konnte nicht geschrieben werden!", e.getClass().getName()));
         }
+
+        konsole = new ConsoleHandler();
+
+        dateiLog.addHandler(datei);
+        konsolenLog.addHandler(konsole);
     }
 
-    public static void loggingVerbindungAufgebaut() {
-
+    public FileHandler getDatei() {
+        return datei;
     }
 
-    public static String testFormat() {
-        String eins = "ist";
-        String zwei = "ein";
-        String drei = "Test";
-
-        return String.format("Dies %s %s %s!!!", eins, zwei, drei);
+    public ConsoleHandler getKonsole() {
+        return konsole;
     }
+
+
+    //
+//    public static void testFormat() {
+//        String eins = "ist";
+//        String zwei = "ein";
+//        String drei = "Test";
+//
+//        String tester = String.format("Dies %s %s %s!!!", eins, zwei, drei);
+//        dateiLog.log(Level.INFO, tester);
+//        konsolenLog.log(Level.INFO, tester);
+//    }
 }
 
 

@@ -11,7 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- * Created by hmueller on 20.09.2016.
+ * Created by Denis on 20.11.2016.
  */
 public class FrameHolder {
 
