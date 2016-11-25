@@ -2,8 +2,6 @@ package Logs;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.*;
 
 import static java.time.format.DateTimeFormatter.BASIC_ISO_DATE;
@@ -11,6 +9,9 @@ import static java.time.format.DateTimeFormatter.BASIC_ISO_DATE;
 /**
  * Created by Denis on 20.11.2016.
  */
+
+// Klasse dient in erster Linie als Vorlage für das Einfügen der Logger etc. in anderen Klassen
+// und als Bereitsteller der Handler an zentraler Position.
 public class denisLog {
     private static FileHandler datei;
     private static ConsoleHandler konsole;
@@ -45,16 +46,6 @@ public class denisLog {
     }
 
 
-    //
-//    public static void testFormat() {
-//        String eins = "ist";
-//        String zwei = "ein";
-//        String drei = "Test";
-//
-//        String tester = String.format("Dies %s %s %s!!!", eins, zwei, drei);
-//        dateiLog.log(Level.INFO, tester);
-//        konsolenLog.log(Level.INFO, tester);
-//    }
 }
 
 

@@ -2,21 +2,16 @@ package gui;
 
 import Logs.denisLog;
 import datenmodell.Termin;
-import db.TerminDAO;
 import gui.listeners.SpeichernListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 //todo: Schöne Strings einsetzen
 
@@ -117,6 +112,7 @@ public class TerminEditor extends JPanel {
         try {
             startzeit = LocalDateTime.parse(this.start.getText(), FORMATTER);
         } catch (DateTimeParseException e) {
+            //todo SEVERE
             JOptionPane.showMessageDialog(this, "Ungültige Startzeit: dd.mm.yy hh:mm", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
             throw e;
         }
@@ -124,6 +120,7 @@ public class TerminEditor extends JPanel {
         try {
             endzeit = LocalDateTime.parse(this.ende.getText(), FORMATTER);
         } catch (DateTimeParseException e) {
+            //todo SEVERE
             JOptionPane.showMessageDialog(this, "Ungültige Endzeit: dd.mm.yy hh:mm", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
             throw e;
         }

@@ -7,12 +7,9 @@ import gui.TerminEditor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 //todo: Schöne Strings einsetzen
+
 /**
  * Created by Denis on 20.11.2016.
  */
@@ -42,6 +39,7 @@ public class SpeichernListener implements ActionListener {
             Termin t = terminEditor.holeTermin();
             TerminDAO.speichern(t);
         } catch (RuntimeException e1) {
+            //todo SEVERE
             e1.printStackTrace();
         }
 

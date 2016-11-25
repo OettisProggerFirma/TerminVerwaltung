@@ -1,10 +1,8 @@
 package gui;
 
 
-import com.sun.javafx.util.Logging;
-import db.DBVerbindung;
-import db.TerminDAO;
 import Logs.denisLog;
+import db.DBVerbindung;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
