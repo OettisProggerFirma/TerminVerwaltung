@@ -1,8 +1,12 @@
 package Logs;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.*;
+
+import static java.time.format.DateTimeFormatter.BASIC_ISO_DATE;
 
 /**
  * Created by Denis on 20.11.2016.
@@ -17,8 +21,9 @@ public class denisLog {
      * Created by Denis on 20.11.2016.
      */
     public denisLog() {
+
         try {
-            datei = new FileHandler(String.format("logging_%s.log", LocalDateTime.now().toString()));
+            datei = new FileHandler(String.format("logging_%s.log", LocalDate.now().format(BASIC_ISO_DATE)));
             datei.setFormatter(new SimpleFormatter());
         } catch (IOException e) {
             e.printStackTrace();

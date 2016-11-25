@@ -18,6 +18,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//todo: Schöne Strings einsetzen
 
 /**
  * Created by Denis on 20.11.2016.
