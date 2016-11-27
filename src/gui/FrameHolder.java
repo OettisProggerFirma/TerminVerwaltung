@@ -10,6 +10,8 @@ import java.awt.event.WindowEvent;
 /**
  * Created by hmueller on 20.09.2016.
  */
+
+
 public class FrameHolder {
 
     private final JFrame frame;

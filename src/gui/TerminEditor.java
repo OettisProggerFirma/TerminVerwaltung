@@ -16,6 +16,7 @@ import java.time.format.FormatStyle;
 /**
  * Created by hmueller on 20.09.2016.
  */
+
 public class TerminEditor extends JPanel {
 
 

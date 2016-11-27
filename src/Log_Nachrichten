@@ -1,0 +1,65 @@
+"TEXT-VORLAGEN"
+Exceptions
+    konsolenLog.log(Level.SEVERE, String.format("%s konnte nicht geschrieben werden!", e.getClass().getName()));
+    dateiLog.log(Level.SEVERE, String.format("Die Datenbankverbindung konnte nicht hergestellt werden. Message: %s, SQL-Status: %s", e.getMessage(), e.getSQLState()));
+    dateiLog.log(Level.SEVERE, String.format("Die Datenbankverbindung konnte nicht geschlossen werden. Message: %s, SQL-Status: %s", e.getMessage(), e.getSQLState()));
+    dateiLog.log(Level.SEVERE, String.format("Die Datenbankverbindung konnte nicht überprüft werden. Message: %s, SQL-Status: %s", e.getMessage(), e.getSQLState()));
+    dateiLog.log(Level.SEVERE, String.format("Fehler beim Speichern des Termins. Message: %s, SQL-Status: %s", e.getMessage(), e.getSQLState()));
+    dateiLog.log(Level.SEVERE, String.format("Fehler beim Laden der Termine. Message: %s, SQL-Status: %s", e.getMessage(), e.getSQLState()));
+    dateiLog.log(Level.SEVERE, String.format("Runtimeexception vom Listener beim Speichern der Termine %s", e1.getMessage()));
+
+
+Konfiguration
+    konsolenLog.log(Level.CONFIG, "Die Verbindung wurde hergestellt.");
+
+
+Verbindung
+    konsolenLog.log(Level.INFO, "Die Verbindung wurde hergestellt.");
+    konsolenLog.log(Level.INFO, "Die Verbindung wurde geschlossen.");
+
+
+Statements
+    konsolenLog.log(Level.FINE, String.format("Folgendes Prepared Statement ausgeführt: %s", sql));
+
+
+
+
+"LOG-OVERHEAD"
+Vorlage beide Logger
+     Als Attribute:
+        private static FileHandler datei;
+        private static ConsoleHandler konsole;
+        private static Logger dateiLog = Logger.getLogger("DB_Logger_file");
+        private static Logger konsolenLog = Logger.getLogger("DB_Logger_con");
+
+     Im Constructor:
+        // FileHandler deklarieren/verknüpfen
+        try {
+            datei = new FileHandler(String.format("logging_%s.log", LocalDate.now().format(BASIC_ISO_DATE)));
+            datei.setFormatter(new SimpleFormatter());
+        } catch (IOException e) {
+            e.printStackTrace();
+            konsolenLog.log(Level.SEVERE, String.format("Das %s konnte nicht geschrieben werden!", e.getClass().getName()));
+        }
+        // Konsolenhandler deklarieren
+        konsole = new ConsoleHandler();
+
+        // Die Logger den Handlern hinzugfügen
+        dateiLog.addHandler(datei);
+        konsolenLog.addHandler(konsole);
+
+
+Vorlage nur Dateilogger
+     Als Attribute:
+        private static FileHandler datei;
+        private static Logger dateiLog = Logger.getLogger("DAO_Logger_file");
+
+     Im Constructor:
+        try {
+            datei = new FileHandler(String.format("logging_%s.log", LocalDate.now().format(BASIC_ISO_DATE)));
+            datei.setFormatter(new SimpleFormatter());
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println(String.format("Das %s konnte nicht geschrieben werden!", e.getClass().getName()));
+        }
+        dateiLog.addHandler(datei);
