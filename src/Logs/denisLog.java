@@ -37,11 +37,11 @@ public class denisLog {
         konsolenLog.addHandler(konsole);
     }
 
-    public FileHandler getDatei() {
+    public static FileHandler getDatei() {
         return datei;
     }
 
-    public ConsoleHandler getKonsole() {
+    public static ConsoleHandler getKonsole() {
         return konsole;
     }
 

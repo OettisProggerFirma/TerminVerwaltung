@@ -20,14 +20,13 @@ public class TerminDAO {
     //    gehört zum logging
     private static Logger dateiLog = Logger.getLogger(denisLog.class.getName());
     private static Logger konsolenLog = Logger.getLogger(denisLog.class.getName());
-    private static denisLog meine = new denisLog();
 //    gehört zum logging
 
     private TerminDAO() {
         //    gehört zum logging
 
-        dateiLog.addHandler(meine.getDatei());
-        konsolenLog.addHandler(meine.getKonsole());
+        dateiLog.addHandler(denisLog.getDatei());
+        konsolenLog.addHandler(denisLog.getKonsole());
 //    gehört zum logging
 
     }
@@ -48,11 +47,9 @@ public class TerminDAO {
             pstm.setString(4, t.getOrt());
 
             pstm.executeUpdate();
-            //todo Vorlagen fürs Logging
             konsolenLog.log(Level.FINE, String.format("Abfrage mit folgenden Werten ausgeführt: \n Start: %s, Ende: %s, Thema: %s, Ort: %s", start, ende, thema, ort));
         } catch (SQLException e) {
-            dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage() + e.getSQLState()));
-            System.err.println("Fehler beim Speichern des Termins: " + e.getMessage() + " : " + e.getSQLState() + " : " + t.toString());
+            dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage(), e.getSQLState()));
         }
     }
 
@@ -74,8 +71,7 @@ public class TerminDAO {
             }
 
         } catch (SQLException e) {
-            //todo SEVERE
-            System.err.println("Fehler beim Laden der Termine: " + e.getMessage() + " : " + e.getSQLState());
+            dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage(), e.getSQLState()));
         }
 
         return ergebnis;

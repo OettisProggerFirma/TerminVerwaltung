@@ -41,7 +41,7 @@ public class DBVerbindung {
             dateiLog.log(Level.CONFIG, String.format("SQL-Verbindung mit folgenden Parametern: URL - %s, User - %s, Passwort - %s (sollte ja wohl bekannt sein)", url, user, pass));
 
         } catch (SQLException e) {
-            dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage() + e.getSQLState()));
+            dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage(), e.getSQLState()));
             System.exit(-1);
         }
 
@@ -52,10 +52,9 @@ public class DBVerbindung {
         if (DBVerbindung.CON != null && DBVerbindung.verbindungSteht()) {
             try {
                 DBVerbindung.CON.close();
-                dateiLog.log(Level.INFO, "SQL-Verbindung ist geschlossen");
             } catch (SQLException e) {
-                System.err.println("Fehler beim Schliessen der Datenbankverbindung: " + e.getMessage() + " : " + e.getSQLState());
-                dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage() + e.getSQLState()));
+//                System.err.println("Fehler beim Schliessen der Datenbankverbindung: " + e.getMessage() + " : " + e.getSQLState());
+                dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage(), e.getSQLState()));
             }
         }
     }
@@ -66,7 +65,7 @@ public class DBVerbindung {
             try {
                 steht = CON.isValid(0);
             } catch (SQLException e) {
-                dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage() + e.getSQLState()));
+                dateiLog.log(Level.SEVERE, String.format("SQL-Fehler: %s: %s", e.getMessage(), e.getSQLState()));
             }
         }
         return steht;
